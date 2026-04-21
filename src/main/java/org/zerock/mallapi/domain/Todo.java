@@ -33,4 +33,20 @@ public class Todo {
     private boolean complete;
 
     private LocalDate dueDate;
+
+    public void changeTitle(String title) {
+        this.title = title;
+    }
+
+    public void changeWriter(String writer) {
+        this.writer = writer;
+    }
+
+    public void changeComplete(boolean complete) {
+        this.complete = complete;
+    }
+
+    public void changeDueDate(LocalDate dueDate) {
+        this.dueDate = dueDate;
+    }
 }
