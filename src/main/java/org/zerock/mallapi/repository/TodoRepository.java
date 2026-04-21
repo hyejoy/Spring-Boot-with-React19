@@ -5,4 +5,5 @@ import org.zerock.mallapi.domain.Todo;
 
 // <entity, PK type> 지정
 public interface TodoRepository extends JpaRepository<Todo, Long> {
+    // test > MallapiApplicationTests
 }
