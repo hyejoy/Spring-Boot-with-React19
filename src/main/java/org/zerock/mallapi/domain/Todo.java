@@ -22,7 +22,7 @@ import java.time.LocalDate;
 @AllArgsConstructor
 public class Todo {
 
-    @Id
+    @Id // DB와 관련된 엔티티인경우 PK 설정 필요
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long tno;
 
