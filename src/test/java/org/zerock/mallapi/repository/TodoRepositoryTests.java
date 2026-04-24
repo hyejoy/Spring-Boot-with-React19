@@ -123,7 +123,21 @@ public class TodoRepositoryTests {
         Pageable pageable = PageRequest.of(0,10,Sort.by("tno").descending());
 
         Page<Todo> result = todoRepository.findByTitleContaining("1", pageable);
-        result.stream().forEach(todo -> log.info(todo));
+        System.out.println("test Start -----");
+        result.stream().forEach(log::info);
+        System.out.println("test End -----");
     }
+
+
+    @Test
+    public void testSearch1_1() {
+        Pageable pageable = PageRequest.of(0, 10, Sort.by("tno").ascending());
+
+        Page<Todo> result = todoRepository.findAll(pageable);  // title 조건 없음
+        System.out.println("test Start -----");
+        result.stream().forEach(log::info);
+        System.out.println("test End -----");
+    }
+
 
 }
