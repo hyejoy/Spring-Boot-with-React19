@@ -5,6 +5,10 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.zerock.mallapi.domain.Todo;
 
 import java.time.LocalDate;
@@ -20,9 +24,10 @@ public class TodoRepositoryTests {
     @Test
     public void testInsert() {
 
+        for (int i = 0; i < 100; i++) {
         Todo todo = Todo.builder()
-                .title("Test...")
-                .writer("user00")
+                .title("TestTitle" + i)
+                .writer("user" + i)
                 .complete(false)
                 .dueDate(LocalDate.now())
                 .build();
@@ -30,6 +35,8 @@ public class TodoRepositoryTests {
         Todo result = todoRepository.save(todo);
 
         log.info("TNO: {}", result.getTno());
+
+        }
     }
 
     @Test
@@ -93,4 +100,30 @@ public class TodoRepositoryTests {
 
         Assertions.assertFalse(result.isPresent());
     }
+
+    @Test
+    public void testPaging() {
+        Pageable pageable = PageRequest.of(0, 10, Sort.by("tno").descending());
+
+        Page<Todo> result = todoRepository.findAll(pageable);
+
+        log.info(result.getTotalPages());
+        log.info(result.getTotalElements());
+        /*
+        *
+           todoRepository.findAll(pageable).forEach(todo -> {
+               log.info(todo);
+            });
+        *
+        */
+    }
+
+    @Test
+    public void testSearch1() {
+        Pageable pageable = PageRequest.of(0,10,Sort.by("tno").descending());
+
+        Page<Todo> result = todoRepository.findByTitleContaining("1", pageable);
+        result.stream().forEach(todo -> log.info(todo));
+    }
+
 }
