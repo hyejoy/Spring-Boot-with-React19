@@ -1,5 +1,6 @@
 package org.zerock.mallapi.repository;
 
+import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.extern.log4j.Log4j2;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -9,9 +10,11 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
+import org.zerock.mallapi.domain.QTodo;
 import org.zerock.mallapi.domain.Todo;
 
 import java.time.LocalDate;
+import java.util.List;
 import java.util.Optional;
 
 @SpringBootTest
@@ -20,6 +23,9 @@ public class TodoRepositoryTests {
 
     @Autowired
     private TodoRepository todoRepository;
+
+    @Autowired
+    private JPAQueryFactory jpaQueryFactory;
 
     @Test
     public void testInsert() {
@@ -140,4 +146,18 @@ public class TodoRepositoryTests {
     }
 
 
+    //QTodo를 이용해서 title로 11이라는 글자가 있는 데이터 검색
+    @Test
+    public void testSearch2() {
+
+        //JPQLQueryFactory를 이용해서 검색
+        QTodo qtodo = QTodo.todo;
+
+        List<Todo> fetch = jpaQueryFactory.selectFrom(qtodo).where(qtodo.title.contains("11")).fetch();
+        System.out.println("--------------------");
+        log.info(fetch);
+        System.out.println("--------------------");
+
+
+    }
 }
