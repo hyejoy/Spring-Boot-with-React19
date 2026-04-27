@@ -11,5 +11,5 @@ public interface TodoService {
     void modify(TodoDTO todoDTO);             // 수정
     void remove(long tno);                    // 삭제 (Sofre Delete 권장
 
-//    PageResponseDTO getList(PageReqeusetDTO pageReqeusetDTO); // 목록
+    PageResponseDTO<TodoDTO> list(PageReqeusetDTO pageReqeusetDTO); // 목록
 }

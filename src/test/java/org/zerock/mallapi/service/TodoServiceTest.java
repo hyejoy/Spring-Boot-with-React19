@@ -7,6 +7,8 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.zerock.mallapi.domain.Todo;
+import org.zerock.mallapi.dto.PageReqeusetDTO;
+import org.zerock.mallapi.dto.PageResponseDTO;
 import org.zerock.mallapi.dto.TodoDTO;
 import org.zerock.mallapi.repository.TodoRepository;
 
@@ -62,7 +64,27 @@ public class TodoServiceTest {
     @Disabled
     @Test
     public void testModify() {
-        TodoDTO todoDTO = TodoDTO.builder().tno(1L).title("Test Update").complete(true).dueDate(LocalDate.of(2025, 12, 31)).build();
+        TodoDTO todoDTO = TodoDTO.builder()
+                .tno(1L)
+                .title("Test Update")
+                .complete(true)
+                .dueDate(LocalDate.of(2025, 12, 31))
+                .build();
         todoService.modify(todoDTO);
     }
+
+    //list()에 대한 테스트 코드
+    @Test
+    public void testList() {
+        log.info("---------------------");
+        PageReqeusetDTO pageReqeusetDTO = PageReqeusetDTO.builder()
+                .page(11)
+                .build();
+        PageResponseDTO<TodoDTO> dto = todoService.list(pageReqeusetDTO);
+        log.info(dto);
+
+        log.info(dto.getPageNumList());
+    }
+
+
 }
