@@ -37,5 +37,28 @@ public class TodoServiceImpl implements TodoService {
         return dto;
     }
 
+    @Override
+    public void modify(TodoDTO todoDTO) {
+        //Todo 엔티티 조회
+        Optional<Todo> result = todoRepository.findById(todoDTO.getTno());
+        Todo todo = result.orElseThrow();
+
+        // title, complete, dueDate
+        todo.changeTitle(todoDTO.getTitle());
+        todo.changeComplete(todoDTO.isComplete());
+        todo.changeDueDate(todoDTO.getDueDate());
+
+        // dirty checking
+        // entity 변경 -> 자동으로 변경시키는거 확인
+
+    }
+
+    @Override
+    public void remove(long tno) {
+
+        log.info("......remove.....");
+        //todoRepository.deleteById(tno);
+    }
+
 
 }

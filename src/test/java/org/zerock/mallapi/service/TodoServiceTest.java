@@ -57,4 +57,12 @@ public class TodoServiceTest {
         TodoDTO todoDTO = todoService.get(tno);
         log.info(todoDTO);
     }
+
+    //modify에 대한 테스트 코드
+    @Disabled
+    @Test
+    public void testModify() {
+        TodoDTO todoDTO = TodoDTO.builder().tno(1L).title("Test Update").complete(true).dueDate(LocalDate.of(2025, 12, 31)).build();
+        todoService.modify(todoDTO);
+    }
 }
